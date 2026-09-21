@@ -31,7 +31,7 @@ Follow these steps to deploy the PKI:
 
 ```
 apt update && apt install -y wget && apt-get install adduser
-wget https://git.thm.de/iot-lab/lab8/-/raw/master/lab8_script.sh
+wget https://raw.githubusercontent.com/markweber1980/IoT-Lab/refs/heads/main/lab8_script.sh
 sh lab8_script.sh
 cd /home/iotlab/PKI
 su iotlab
@@ -72,7 +72,7 @@ Befolgen Sie diese Schritte, um die PKI einzurichten:
 
 ```
 apt update && apt install -y wget && apt-get install adduser
-wget https://git.thm.de/iot-lab/lab8/-/raw/master/lab8_script.sh
+wget https://raw.githubusercontent.com/markweber1980/IoT-Lab/refs/heads/main/lab8_script.sh
 sh lab8_script.sh
 cd /home/iotlab/PKI
 su iotlab
