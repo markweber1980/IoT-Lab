@@ -10,7 +10,7 @@
 
 PASS="iotlab2022"
 PKI="/home/iotlab/PKI"
-CONF_URL="raw.githubusercontent.com/markweber1980/IoT-Lab/main/pki-openssl-sample.conf"
+CONF_URL="https://raw.githubusercontent.com/markweber1980/IoT-Lab/main/pki-openssl-sample.conf"
 
 # ---- helper: run a command quietly; on failure show the error and stop ----
 step() {
@@ -60,9 +60,13 @@ if ! wget -q -O pki-openssl-sample.conf "${CONF_URL}"; then
     echo "[ERROR] Check your network / the URL, then re-run."
     exit 1
 fi
-# a login page or 404 would create a non-empty but wrong file, so sanity-check it
-if [ ! -s pki-openssl-sample.conf ] || ! grep -q "\[" pki-openssl-sample.conf; then
-    echo "[ERROR] Downloaded config looks invalid (empty or not an OpenSSL conf)."
+# a login page or 404 returns HTML, not a conf - reject that, and require a
+# real OpenSSL section header ("[ req ]") that an HTML page will never contain.
+if [ ! -s pki-openssl-sample.conf ] \
+   || grep -qi "<!DOCTYPE\|<html" pki-openssl-sample.conf \
+   || ! grep -q "\[ *req *\]" pki-openssl-sample.conf; then
+    echo "[ERROR] Downloaded config is not a valid OpenSSL conf (got HTML or wrong file)."
+    echo "[ERROR] Check the URL/branch: ${CONF_URL}"
     echo "[ERROR] First lines were:"
     head -n 5 pki-openssl-sample.conf | sed 's/^/        /'
     exit 1
