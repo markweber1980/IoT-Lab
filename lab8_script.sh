@@ -10,7 +10,7 @@
 
 PASS="iotlab2022"
 PKI="/home/iotlab/PKI"
-CONF_URL="https://raw.githubusercontent.com/AxokGit/Lab8/main/pki-openssl-sample.conf"
+CONF_URL="https://github.com/markweber1980/IoT-Lab/blob/main/pki-openssl-sample.conf"
 
 # ---- helper: run a command quietly; on failure show the error and stop ----
 step() {
